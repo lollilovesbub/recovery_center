@@ -18,7 +18,7 @@ INTERACTIVE_MENU = \
 """Choose an option from the menu below:
 1. Create a new sequence
 2. Load a sequence
-3. Load and play a sequence
+3. Exit
 """
 
 INTERACTIVE_LOAD = \
@@ -64,33 +64,35 @@ def load(seq_path):
     return seq
 
 def interactive():
-    option = input(INTERACTIVE_MENU).strip()
-    if not option.isdigit():
-        print("No.")
-        return
-    elif option not in OPTIONS:
-        print("Choose a valid option.")
-        return
-    elif option == '1':
-        create()
-    elif option == '2':
-        seq_name = input("What is the name of the sequence (do not use the full path)? ").strip(consts.STRIP_FILENAME)
-        seq_path = Path(__file__).resolve().parent / 'sequences' / f"{seq_name}.json"
-        seq = load(seq_path)
-        while True:
-            option_seq = input(INTERACTIVE_LOAD).strip()
-            if not option_seq.isdigit():
-                print("No.")
-                return
-            elif option_seq not in OPTIONS:
-                print("Choose a valid option.")
-                return
-            elif option_seq == '1':
-                utils.play_key('load', sounds=utils.sounds, seq=seq)
-                print()
-            elif option_seq == '2':
-                create(seq)
-            
-
-    elif option == '3':
-        pass
+    while True:
+        option = input(INTERACTIVE_MENU).strip()
+        if not option.isdigit():
+            print("No.")
+        elif option not in OPTIONS:
+            print("Choose a valid option.")
+        elif option == '1':
+            create()
+        elif option == '2':
+            seq_name = input("What is the name of the sequence (do not use the full path)? ").strip(consts.STRIP_FILENAME)
+            seq_path = Path(__file__).resolve().parent / 'sequences' / f"{seq_name}.json"
+            seq = load(seq_path)
+            while True:
+                option_seq = input(INTERACTIVE_LOAD).strip()
+                if not option_seq.isdigit():
+                    print("No.")
+                    return
+                elif option_seq not in OPTIONS:
+                    print("Choose a valid option.")
+                    return
+                elif option_seq == '1':
+                    utils.play_key('load', sounds=utils.sounds, seq=seq)
+                    print()
+                elif option_seq == '2':
+                    create(seq)
+                    break
+                elif option_seq == '3':
+                    utils.play_key('load', sounds=utils.sounds, seq=seq)
+                    print()
+                    return
+        elif option == '3':
+            break
