@@ -34,7 +34,7 @@ def load_sound_bank(bank_name, from_dir='.', extension='wav'):
 
     return bank
 
-def clear_screen(width):
+def clear_screen():
     print(f'\033[2J\033[H', end='\r')
 
 def play_sequence(seq):
@@ -51,13 +51,13 @@ def play_key(event, sounds, seq=None):
         seq = []
     
     key = '`' if event == 'load' else event.name.upper()
-    width = len(seq)
+    
     if key == '`' and create:
-        clear_screen(width)
+        clear_screen()
         play_sequence(seq)
 
     elif key == 'BACKSPACE' and create:
-        clear_screen(width)
+        clear_screen()
         if seq:
             seq.pop()
         print(''.join(seq), end='', flush=True)
