@@ -1,7 +1,7 @@
 import string
 
 DEBUG = {
-    'on': True,
+    'on': False,
     'sound_test': False,
     'sequencer_tests': {
         'create': False,
